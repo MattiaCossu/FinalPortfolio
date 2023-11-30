@@ -1,0 +1,10 @@
+version: "3.6"
+services:
+  nginx:
+    volumes:
+    #  - ./config/ssl:/etc/ssl:ro
+      - ./config/nginx/dev/templates:/etc/nginx/templates
+  frontend:
+    ports:
+      - "24678:24678"
+    command: sh -c "npm install && npm run dev" 

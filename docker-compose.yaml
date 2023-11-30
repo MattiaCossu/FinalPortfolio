@@ -1,0 +1,91 @@
+version: "3.6"
+services:
+  nginx:
+    image: nginx:latest
+    working_dir: /var/www/html
+    container_name: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./frontend:/var/www/html/frontend
+      - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf
+    environment:
+        - TOKEN_NGINX_DJANGO=${TOKEN_NGINX_DJANGO}
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - frontend
+      - backend
+
+  frontend:
+    build:
+        dockerfile: ./config/docker/frontend/Dockerfile
+        context: .
+    user: node
+    container_name: frontend
+    working_dir: /var/www/html/frontend
+    volumes:
+      - ./frontend:/var/www/html/frontend
+    command: sh -c "node .output/server/index.mjs"
+    stdin_open: true
+    tty: true
+    networks:
+      - frontend
+
+  backend:
+    build:
+      dockerfile: ./config/docker/backend/Dockerfile
+      context: .
+    user: www-data
+    container_name: backend
+    working_dir: /app
+    volumes:
+      - ./backend:/app
+    environment:
+      - TOKEN_NGINX_DJANGO=${TOKEN_NGINX_DJANGO}
+      - TOKEN_HTB=${TOKEN_HTB}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    command: sh -c " python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8000"
+    stdin_open: true
+    tty: true
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - backend
+
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    restart: unless-stopped
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    ports:
+      - "3306:3306"  
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u${MYSQL_USER}", "-p${MYSQL_PASSWORD}"]
+      interval: 10s
+      retries: 5
+      timeout: 5s
+    networks:
+      - backend
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge
