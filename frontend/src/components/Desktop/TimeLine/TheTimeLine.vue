@@ -37,7 +37,6 @@
       grouped[date].push(item)
     })
 
-    console.log(grouped)
     return grouped
   })
 

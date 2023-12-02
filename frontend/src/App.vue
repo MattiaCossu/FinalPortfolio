@@ -1,19 +1,32 @@
-<script lang="ts" setup>
-  import TheHeader from '@/components/Desktop/TheHeader.vue'
+<script setup lang="ts">
+  import { ref, watchEffect } from 'vue'
+  import { useElementSize } from '@vueuse/core'
+  import DesktopHeader from '@/components/Desktop/TheHeader.vue'
   import TheFooter from '@/components/Desktop/TheFooter.vue'
+  import MobileHeader from '@/components/Mobile/TheHeader.vue'
+
+  const element = ref<HTMLElement | null>(null)
+  const size = useElementSize(element)
+
+  const isDesktop = ref<boolean>(true)
+
+  watchEffect(() => {
+    isDesktop.value = size.width.value > 768
+  })
 </script>
 
 <template>
   <div>
-    <div class="bg-[#011627]">
+    <div ref="element" class="bg-[#011627]">
       <header class="">
-        <TheHeader />
+        <desktop-header v-if="isDesktop" />
+        <mobile-header v-else />
       </header>
       <main class="my-height w-full">
-        <router-view />
+        <router-view v-if="isDesktop" />
       </main>
       <footer>
-        <TheFooter />
+        <TheFooter v-if="isDesktop" />
       </footer>
     </div>
   </div>
@@ -22,9 +35,5 @@
 <style scoped>
   .my-height {
     height: calc(100vh - 128px);
-  }
-
-  .my-width {
-    width: calc(16.666667% + 2px);
   }
 </style>

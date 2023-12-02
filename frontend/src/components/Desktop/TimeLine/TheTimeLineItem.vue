@@ -29,13 +29,17 @@
     },
   })
 
-  function getAvatarSrc(item: Activity): string {
-    if (item.object_type === 'machine' && item.machine_avatar) {
-      return 'https://www.hackthebox.com' + item.machine_avatar // Se è una machine e ha un machine_avatar, restituisci il percorso dell'immagine
-    } else if (item.object_type === 'challenge') {
-      return 'url_statica_per_la_challenge' // Se è una challenge, restituisci l'URL statico per la challenge
-    } else {
-      return 'url_default_per_le_altre_attività' // Altrimenti, restituisci un URL di default per altre attività
+  function getAvatarSrc(item: Activity) {
+    switch (item.object_type) {
+      case 'machine':
+        if (item.machine_avatar) {
+          return 'https://www.hackthebox.com' + item.machine_avatar
+        }
+        break
+      case 'challenge':
+        return 'url_statica_per_la_challenge'
+      default:
+        return 'url_default_per_le_altre_attività'
     }
   }
 </script>
@@ -55,11 +59,7 @@
         </div>
         <div class="h-full flex flex-col justify-center w-full">
           <!-- Arrow -->
-          <div
-            v-if="index !== group.length - 1"
-            class="absolute top-1/2 transform -translate-y-1/2"
-            style="left: 65px"
-          >
+          <div class="absolute top-1/2 transform -translate-y-1/2" style="left: 65px">
             <div class="w-6 h-6 bg-slate-800 transform rotate-45"></div>
           </div>
           <!-- Line -->

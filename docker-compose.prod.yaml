@@ -1,0 +1,15 @@
+version: "3.6"
+services:
+  nginx:
+    volumes:
+      - ./config/certbot/www/:/var/www/certbot/:ro
+      - ./config/nginx/dev/templates:/etc/nginx/templates
+  frontend:
+    ports:
+      - "24678:24678"
+    command: sh -c "npm install && npm run build" 
+  certbot:
+    image: certbot/certbot:latest
+    volumes:
+      - ./config/certbot/www/:/var/www/certbot/:rw
+      - ./config/certbot/conf/:/etc/letsencrypt/:rw
