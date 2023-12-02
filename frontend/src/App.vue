@@ -16,8 +16,8 @@
 </script>
 
 <template>
-  <div>
-    <div ref="element" class="bg-[#011627]">
+  <div class="bg-[#010c15]">
+    <div ref="element" class="element bg-[#011627]">
       <header class="">
         <desktop-header v-if="isDesktop" />
         <mobile-header v-else />
@@ -32,8 +32,23 @@
   </div>
 </template>
 
-<style scoped>
+<style>
+  html {
+    scroll-behavior: smooth;
+    background-color: #010c15;
+  }
   .my-height {
     height: calc(100vh - 128px);
+  }
+
+  @media (max-width: 768px) {
+    .element {
+      margin: 4px !important;
+      border-radius: 8px !important;
+      border: 1px solid #1e2d3d !important;
+    }
+    .my-height {
+      height: calc(100vh - 74px);
+    }
   }
 </style>
