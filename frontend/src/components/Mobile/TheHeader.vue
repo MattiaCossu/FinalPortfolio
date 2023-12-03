@@ -78,7 +78,7 @@
       <div class="flex flex-col h-full">
         <div
           class="pb-3 space-y-1 sm:px-3 text-white rounded-b-lg"
-          style="height: calc(100vh - 8rem - 10px); width: calc(100vw - 9px)"
+          style="width: calc(100vw - 9px)"
         >
           <div
             v-for="(item, index) in menuItems"
@@ -95,7 +95,7 @@
             </router-link>
           </div>
         </div>
-        <div class="">
+        <div style="margin-top: calc(100vh - 22rem - 14px)">
           <the-footer />
         </div>
       </div>
