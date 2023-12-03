@@ -75,10 +75,10 @@
       :base-height="0"
       class="flex flex-col absolute overflow-hidden"
     >
-      <div class="flex flex-col h-full">
+      <div class="flex flex-col h-full bg-[#011627] z-10 rounded-lg">
         <div
-          class="pb-3 space-y-1 sm:px-3 text-white rounded-b-lg"
-          style="width: calc(100vw - 9px)"
+          class="pb-3 space-y-1 sm:px-3 text-white rounded-b-lg z-10 bg-[#011627]"
+          style="width: calc(100vw - 10px)"
         >
           <div
             v-for="(item, index) in menuItems"

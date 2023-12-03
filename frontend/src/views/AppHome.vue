@@ -1,7 +1,13 @@
+<script lang="ts" setup>
+  const props = defineProps<{
+    isDesktop: boolean
+  }>()
+</script>
+
 <template>
   <div>
     <div class="grid grid-cols-2 place-content-center my-height">
-      <div class="flex flex-col my-12">
+      <div class="flex flex-col justify-center my-12">
         <div class="self-center">
           <div
             class="text-[#e5e9f0] text-left relative"
@@ -34,7 +40,7 @@
             &gt; CyberSecurity Student
           </div>
           <div
-            class="text-[#607b96] text-left relative py-4"
+            class="text-[#607b96] text-left relative pt-4"
             style="
               font:
                 400 16px 'Fira Code',
@@ -73,7 +79,7 @@
           </div>
         </div>
       </div>
-      <div class="p-4">
+      <div v-if="props.isDesktop" class="p-4">
         <base-hascii class="text-[#4d5bce] w-full" />
       </div>
     </div>

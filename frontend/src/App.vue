@@ -17,13 +17,13 @@
 
 <template>
   <div class="bg-[#010c15]">
-    <div ref="element" class="element bg-[#011627]">
-      <header class="">
+    <div ref="element" class="element bg-[#011627] rounded-lg">
+      <header>
         <desktop-header v-if="isDesktop" />
         <mobile-header v-else />
       </header>
-      <main class="my-height w-full">
-        <router-view v-if="isDesktop" />
+      <main class="my-height w-full md:border-x md:border-[#1e2d3d]">
+        <router-view :is-desktop="isDesktop" />
       </main>
       <footer>
         <TheFooter v-if="isDesktop" />
@@ -38,7 +38,11 @@
     background-color: #010c15;
   }
   .my-height {
-    height: calc(100vh - 128px);
+    height: calc(100vh - 176px);
+  }
+
+  .element {
+    margin: 24px;
   }
 
   @media (max-width: 768px) {

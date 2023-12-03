@@ -22,7 +22,7 @@
 </script>
 
 <template>
-  <div class="flex items-center h-16 text-[#607b96] border border-[#1e2d3d]">
+  <div class="flex items-center h-16 text-[#607b96] border border-[#1e2d3d] rounded-t-lg">
     <div
       class="px-4 w-1/6 h-full flex items-center border-r border-[#1e2d3d]"
       style="

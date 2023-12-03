@@ -63,3 +63,9 @@
     <pre ref="animationOutput" />
   </div>
 </template>
+
+<style scoped>
+  pre {
+    border: 0 !important;
+  }
+</style>
