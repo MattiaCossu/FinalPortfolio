@@ -6,7 +6,7 @@
 
 <template>
   <div>
-    <div class="grid grid-cols-2 place-content-center my-height">
+    <div class="flex justify-center gap-12 my-height backdrop-opacity-25">
       <div class="flex flex-col justify-center my-12">
         <div class="self-center">
           <div
@@ -79,7 +79,9 @@
           </div>
         </div>
       </div>
-      <div v-if="props.isDesktop" class="p-4">
+      <div class="background-style1 -z-50"></div>
+      <div class="background-style2 -z-50"></div>
+      <div v-if="props.isDesktop" class="flex flex-col justify-center my-12">
         <base-hascii class="text-[#4d5bce] w-full" />
       </div>
     </div>
@@ -88,6 +90,49 @@
 
 <style scoped>
   .my-height {
-    height: calc(100vh - 128px);
+    height: calc(100vh - 176px);
+  }
+
+  .background-style1,
+  .background-style2 {
+    width: 454px;
+    height: 492px;
+    position: fixed;
+    overflow: hidden;
+    top: 50%;
+    left: 50%;
+    transform-origin: top left;
+    opacity: 0.4;
+    box-shadow: 174px 174px 174px;
+    filter: blur(174px);
+    z-index: -1; /* Spostiamo gli sfondi dietro agli altri elementi */
+  }
+
+  .background-style1 {
+    background: #4d5bce;
+    transform: translate(-50%, -50%) rotate(13.51deg);
+  }
+
+  .background-style2 {
+    background: #43d9ad;
+    transform: translate(-50%, -50%) rotate(-94.3deg);
+  }
+
+  @media (max-width: 768px) {
+    .background-style1,
+    .background-style2 {
+      display: block;
+      width: 354px;
+      height: 392px;
+      top: 500px;
+    }
+
+    .background-style2 {
+      transform: translate(-50%, -50%) rotate(-94.3deg) scale(0.5);
+    }
+
+    .background-style1 {
+      transform: translate(-50%, -50%) rotate(13.51deg) scale(0.5);
+    }
   }
 </style>

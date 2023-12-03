@@ -6,7 +6,9 @@
 </script>
 
 <template>
-  <div class="flex items-center h-16 text-[#607b96] border border-[#1e2d3d] rounded-b-lg">
+  <div
+    class="flex z-50 relative bg-[#011627] items-center h-16 text-[#607b96] border border-[#1e2d3d] rounded-b-lg"
+  >
     <div
       class="p-4"
       style="
