@@ -1,6 +1,4 @@
 <script setup lang="ts">
-  import TheDynamicNav from '@/components/Desktop/TheDynamicNav.vue'
-
   import { shallowRef, ref, watch, defineAsyncComponent, onMounted } from 'vue'
   import { useLinkStore } from '@/store/link'
   import type { Ref, Component } from 'vue'
@@ -11,10 +9,12 @@
   }>()
 
   const navIs = shallowRef<Component | null>(null)
+  const dynNav = shallowRef<Component | null>(null)
 
   onMounted(() => {
     if (props.isDesktop) {
       navIs.value = defineAsyncComponent(() => import('@/components/Desktop/TheNav.vue'))
+      dynNav.value = defineAsyncComponent(() => import('@/components/Desktop/TheDynamicNav.vue'))
     } else {
       navIs.value = defineAsyncComponent(() => import('@/components/Mobile/TheNav.vue'))
     }
@@ -25,6 +25,7 @@
     (isDesktop) => {
       if (isDesktop) {
         navIs.value = defineAsyncComponent(() => import('@/components/Desktop/TheNav.vue'))
+        dynNav.value = defineAsyncComponent(() => import('@/components/Desktop/TheDynamicNav.vue'))
       } else {
         navIs.value = defineAsyncComponent(() => import('@/components/Mobile/TheNav.vue'))
       }
@@ -48,7 +49,7 @@
 
 <template>
   <div
-    class="item-center h-full text-[#607b96] border-x border-[#1e2d3d] flex flex-row justify-center"
+    class="item-center h-full text-[#607b96] flex flex-row justify-center"
     :class="{
       flex: !isDesktop,
       'flex-col': !isDesktop,
@@ -64,7 +65,7 @@
       }"
     >
       <div class="w-full">
-        <the-dynamic-nav :received-link="receivedLink" />
+        <component :is="dynNav" v-if="isDesktop" :received-link="receivedLink" />
         <div v-if="menuItems.length !== 0" class="overflow-y-auto h-[calc(100%-48px)]">
           <router-view />
         </div>

@@ -6,9 +6,7 @@
 
 <template>
   <div>
-    <div
-      class="flex justify-center gap-12 my-height backdrop-opacity-25 lg:border-x lg:border-[#1e2d3d]"
-    >
+    <div class="flex justify-center gap-12 my-height backdrop-opacity-25">
       <div class="flex flex-col justify-center">
         <div class="self-center">
           <div

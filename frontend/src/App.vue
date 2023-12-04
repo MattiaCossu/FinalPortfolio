@@ -24,7 +24,7 @@
         <desktop-header v-if="isDesktop" />
         <mobile-header v-else />
       </header>
-      <main class="my-height">
+      <main class="my-height lg:border-x lg:border-[#1e2d3d]">
         <router-view :is-desktop="isDesktop" />
       </main>
       <footer>
