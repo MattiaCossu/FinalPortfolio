@@ -27,20 +27,19 @@
 </script>
 
 <template>
-  <div class="flex gap-2 item-center">
-    <div>
-      <component
-        :is="props.icon"
-        class="h-full"
-        :style="{
-          color: props.color,
-        }"
-      />
-    </div>
-    <div>
-      <router-link :to="{ name: props.link }">
+  <router-link :to="{ name: props.link }">
+    <div class="flex gap-2 item-center">
+      <div>
+        <component
+          :is="props.icon"
+          :style="{
+            color: props.color,
+          }"
+        />
+      </div>
+      <div>
         {{ props.string }}
-      </router-link>
+      </div>
     </div>
-  </div>
+  </router-link>
 </template>
