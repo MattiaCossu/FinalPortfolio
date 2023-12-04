@@ -49,24 +49,36 @@
 
 <template>
   <div
-    class="item-center h-full text-[#607b96] flex flex-row justify-center"
+    class="item-center text-[#607b96] flex flex-row justify-center"
     :class="{
       flex: !isDesktop,
       'flex-col': !isDesktop,
     }"
   >
-    <div class="w-1/6 border-r border-[#1e2d3d]">
+    <div
+      class="w-1/6"
+      :class="{
+        'border-r': isDesktop,
+        'border-[#1e2d3d]': isDesktop,
+      }"
+    >
       <component :is="navIs" @click-link="handleClickLink" />
     </div>
     <div
-      class="w-full flex h-full"
+      class="w-full flex"
       :class="{
         'justify-center': !isDesktop,
       }"
     >
       <div class="w-full">
         <component :is="dynNav" v-if="isDesktop" :received-link="receivedLink" />
-        <div v-if="menuItems.length !== 0" class="overflow-y-auto h-[calc(100%-48px)]">
+        <div
+          v-if="menuItems.length !== 0"
+          class="overflow-y-auto"
+          :class="{
+            'h-[calc(100%-48px)': isDesktop,
+          }"
+        >
           <router-view />
         </div>
       </div>
