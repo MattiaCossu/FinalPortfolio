@@ -29,7 +29,7 @@
               class: 'p-4 ml-2 pb-0',
               title: 'Whoami',
               icon: InfoIcon,
-              link: 'WhoamiInfo',
+              url: 'WhoamiInfo',
             },
           ],
         },
@@ -45,7 +45,7 @@
               class: 'p-4 ml-2 pb-0',
               title: 'info',
               icon: InfoIcon,
-              link: 'WhoamiInfo',
+              url: 'WhoamiInfo',
             },
           ],
         },
@@ -61,13 +61,13 @@
               class: 'p-4 ml-2',
               title: 'Its',
               icon: SchoolIcon,
-              link: 'WhoamiITS',
+              url: 'WhoamiITS',
             },
             {
               class: 'p-4 ml-2',
               title: 'Itts',
               icon: SchoolIcon,
-              link: 'WhoamiITTS',
+              url: 'WhoamiITTS',
             },
           ],
         },
@@ -101,10 +101,10 @@
 
   const emits = defineEmits(['click-link'])
 
-  const emitClick = (title: string, link: string) => {
+  const emitClick = (title: string, url: string) => {
     const receivedLink: Link = {
       title,
-      link,
+      url,
       isActive: true,
     }
     emits('click-link', receivedLink)
@@ -142,8 +142,8 @@
               class="p-2"
               :string="content.title"
               :icon="content.icon"
-              :link="content.link"
-              @click="emitClick(content.title, content.link)"
+              :link="content.url"
+              @click="emitClick(content.title, content.url)"
             />
           </div>
         </base-accordion>

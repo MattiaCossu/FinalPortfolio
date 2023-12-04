@@ -3,12 +3,12 @@
   import { useLinkStore } from '@/store/link'
   import FullArrowIcon from '@/components/Icons/FullArrowIcon.vue'
 
-  import type { Link } from ' @/types/Link'
+  import type { Link } from '@/types/Link'
   import type { Ref } from 'vue'
 
   onMounted(() => {
     if (props.receivedLink) {
-      const defaultItems: Link = { title: 'Whoami', link: 'WhoamiInfo', isActive: true }
+      const defaultItems: Link = { title: 'Whoami', url: 'WhoamiInfo', isActive: true }
       linkStore.addMenuItem(defaultItems)
     }
   })
@@ -66,7 +66,7 @@
           :class="{ 'border-dashed border': item.isActive }"
         >
           <div>
-            <router-link :to="{ name: item.link }">
+            <router-link :to="{ name: item.url }">
               {{ item.title }}
             </router-link>
           </div>

@@ -13,7 +13,8 @@
 
   const receivedLink: Ref<Link> = ref({
     title: 'whoami',
-    link: 'whoamiInfo',
+    url: 'whoamiInfo',
+    isActive: true,
   })
 
   const handleClickLink = (link: Link) => {
