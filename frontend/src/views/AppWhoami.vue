@@ -1,11 +1,35 @@
 <script setup lang="ts">
-  import TheNav from '@/components/Desktop/TheNav.vue'
   import TheDynamicNav from '@/components/Desktop/TheDynamicNav.vue'
 
-  import { ref } from 'vue'
+  import { shallowRef, ref, watch, defineAsyncComponent, onMounted } from 'vue'
   import { useLinkStore } from '@/store/link'
-  import type { Ref } from 'vue'
+  import type { Ref, Component } from 'vue'
   import type { Link } from '@/types/Link'
+
+  const props = defineProps<{
+    isDesktop: boolean
+  }>()
+
+  const navIs = shallowRef<Component | null>(null)
+
+  onMounted(() => {
+    if (props.isDesktop) {
+      navIs.value = defineAsyncComponent(() => import('@/components/Desktop/TheNav.vue'))
+    } else {
+      navIs.value = defineAsyncComponent(() => import('@/components/Mobile/TheNav.vue'))
+    }
+  })
+
+  watch(
+    () => props.isDesktop,
+    (isDesktop) => {
+      if (isDesktop) {
+        navIs.value = defineAsyncComponent(() => import('@/components/Desktop/TheNav.vue'))
+      } else {
+        navIs.value = defineAsyncComponent(() => import('@/components/Mobile/TheNav.vue'))
+      }
+    },
+  )
 
   const linkStore = useLinkStore()
 
@@ -23,11 +47,22 @@
 </script>
 
 <template>
-  <div class="item-center flex h-full text-[#607b96] border-x border-[#1e2d3d]">
+  <div
+    class="item-center h-full text-[#607b96] border-x border-[#1e2d3d] flex flex-row justify-center"
+    :class="{
+      flex: !isDesktop,
+      'flex-col': !isDesktop,
+    }"
+  >
     <div class="w-1/6 border-r border-[#1e2d3d]">
-      <the-nav @click-link="handleClickLink" />
+      <component :is="navIs" @click-link="handleClickLink" />
     </div>
-    <div class="flex justify-center w-5/6">
+    <div
+      class="w-full flex h-full"
+      :class="{
+        'justify-center': !isDesktop,
+      }"
+    >
       <div class="w-full">
         <the-dynamic-nav :received-link="receivedLink" />
         <div v-if="menuItems.length !== 0" class="overflow-y-auto h-[calc(100%-48px)]">
