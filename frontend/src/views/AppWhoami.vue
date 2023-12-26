@@ -49,15 +49,17 @@
 
 <template>
   <div
-    class="item-center text-[#607b96] flex flex-row justify-center"
+    class="item-center flex flex-row h-full text-[#607b96]"
     :class="{
       flex: !isDesktop,
       'flex-col': !isDesktop,
+      'border-x': isDesktop,
+      'border-[#1e2d3d]': isDesktop,
     }"
   >
     <div
-      class="w-1/6"
       :class="{
+        'w-1/6': isDesktop,
         'border-r': isDesktop,
         'border-[#1e2d3d]': isDesktop,
       }"
@@ -65,9 +67,10 @@
       <component :is="navIs" @click-link="handleClickLink" />
     </div>
     <div
-      class="w-full flex"
+      class="flex overflow-hidden"
       :class="{
-        'justify-center': !isDesktop,
+        'w-5/6': isDesktop,
+        'justify-center': isDesktop,
       }"
     >
       <div class="w-full">
@@ -76,7 +79,8 @@
           v-if="menuItems.length !== 0"
           class="overflow-y-auto"
           :class="{
-            'h-[calc(100%-48px)': isDesktop,
+            'h-[calc(100%-48px)]': isDesktop,
+            'h-[calc(100%)]': !isDesktop,
           }"
         >
           <router-view />

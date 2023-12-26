@@ -135,11 +135,11 @@
           :is-expanded="item.isExpanded"
           :index="item.id"
         >
-          <div class="p-2 ml-2 pb-0">
+          <div class="p-4 ml-2 pb-0">
             <base-icon-and-route
               v-for="(content, j) in item.content"
               :key="j"
-              class="p-2"
+              :class="j >= 1 ? 'p-2' : 'p-0'"
               :string="content.title"
               :icon="content.icon"
               :link="content.url"
